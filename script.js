@@ -83,6 +83,49 @@ btn.addEventListener('click', () => {
 });
 
 /////////////////////////////////////////////
+const wait = function (time) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, time);
+  });
+};
+
+const createImage = function (path) {
+  return new Promise(function (resolve, reject) {
+    const elem = document.createElement('img');
+    elem.src = path;
+    elem.classList.add('images');
+    elem.classList.add('parallel');
+    elem.addEventListener('load', () => {
+      const lastImageChild = imageContainer.lastChild;
+      if (!!lastImageChild) imageContainer.removeChild(lastImageChild);
+
+      imageContainer.appendChild(elem);
+      resolve(elem);
+    });
+
+    elem.addEventListener('error', () => reject('error in loading image'));
+  });
+};
+
+const loadAndPause = async () => {
+  try {
+    const img = await createImage(`/img/img-1.jpg`);
+    await wait(2000);
+
+    const img2 = await createImage(`/img/img-2.jpg`);
+    await wait(2000);
+
+    const img3 = await createImage(`/img/img-3.jpg`);
+    await wait(2000);
+
+    const lastImageChild = imageContainer.lastChild;
+    if (!!lastImageChild) imageContainer.removeChild(lastImageChild);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+loadAndPause();
 
 /////////////////////////////////////////////
 // const wait = function (time) {
