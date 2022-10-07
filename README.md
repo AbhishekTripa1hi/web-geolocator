@@ -5,7 +5,7 @@ In this demo application, we have
 
 ### Gelocation API
 
-Coordinates of the device's location are obtained using browser's Geolocation API
+Coordinates of the device's location are obtained using the browser's Geolocation API
 
 ### Web API - Reverse Geocoding
 
